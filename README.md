@@ -1,10 +1,18 @@
 ## Serverless Graphql
+
+A serverless implementation of GraphQL written in Go
+
 ### Require
 - SLS ([https://serverless.com/](https://serverless.com/))
 
 #### Build
 ```
-go build -o bin/handler
+make build
+```
+
+#### Test
+```
+make test
 ```
 
 #### Deploy

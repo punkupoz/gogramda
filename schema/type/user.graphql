@@ -1,4 +1,4 @@
-type Person{
+type User{
   id: ID!
   firstName: String!
   lastName: String

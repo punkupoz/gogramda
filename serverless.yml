@@ -14,7 +14,7 @@ package:
 
 functions:
   graphql:
-    handler: bin/handler
+    handler: bin/graphql
     events:
     - http:
         path: /

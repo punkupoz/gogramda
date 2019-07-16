@@ -1,3 +1,5 @@
-type Query {
-  person(id: ID!): Person
-}
+
+		type Query {
+			person(id: ID!): Person
+		}
+	

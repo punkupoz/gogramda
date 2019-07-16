@@ -1,19 +1,19 @@
 package schema
 
 import (
-	"path/filepath"
-	"fmt"
-	"os"
-	"io/ioutil"
 	"bytes"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 	"regexp"
 )
 
 // Read all "*.graphql" files in schema directory
 
-func String() string {
+func String(path string) string {
 	buf := bytes.Buffer{}
-	filepath.Walk("./schema", func (path string, info os.FileInfo, err error) error {
+	filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			fmt.Printf("prevent panic by handling failure accessing a path %q: %v\n", path, err)
 			return err
