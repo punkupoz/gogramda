@@ -1,8 +1,8 @@
 package playground
 
 import (
-	"html/template"
 	"bytes"
+	"html/template"
 )
 
 var page = template.Must(template.New("graphiql").Parse(`<!DOCTYPE html>
@@ -43,6 +43,7 @@ var page = template.Must(template.New("graphiql").Parse(`<!DOCTYPE html>
 </html>
 `))
 
+// Playground returns the HTML for GraphQL playground
 func Playground(title string, endpoint string) string {
 	var bodyBuffer bytes.Buffer
 	err := page.Execute(&bodyBuffer, map[string]string{

@@ -18,11 +18,13 @@ import (
 var mainSchema *graphql.Schema
 
 var (
-	// ErrNameNotProvided is thrown when a name is not provided
-	QueryNameNotProvided = errors.New("no query was provided in the HTTP body")
-	IncorrectHttpMethod  = errors.New("accepts only GET and POST requests")
+	// ErrQueryNameNotProvided is thrown when a name is not provided
+	ErrQueryNameNotProvided = errors.New("no query was provided in the HTTP body")
+	// ErrIncorrectHTTPMethod is thrown when a method is not allowed in an endpoint
+	ErrIncorrectHTTPMethod  = errors.New("accepts only GET and POST requests")
 )
 
+// Handler processes requests to Lambda function
 func Handler(context context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	log.Printf("Processing Lambda request %s\n", request.RequestContext.RequestID)
 
@@ -38,7 +40,7 @@ func Handler(context context.Context, request events.APIGatewayProxyRequest) (ev
 	if request.HTTPMethod == "POST" {
 		// If no query is provided in the HTTP request body, throw an error
 		if len(request.Body) < 1 {
-			return events.APIGatewayProxyResponse{}, QueryNameNotProvided
+			return events.APIGatewayProxyResponse{}, ErrQueryNameNotProvided
 		}
 
 		var params struct {
@@ -63,7 +65,7 @@ func Handler(context context.Context, request events.APIGatewayProxyRequest) (ev
 		}, nil
 	}
 
-	return events.APIGatewayProxyResponse{}, IncorrectHttpMethod
+	return events.APIGatewayProxyResponse{}, ErrIncorrectHTTPMethod
 }
 
 func init() {

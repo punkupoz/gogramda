@@ -32,6 +32,7 @@ type Query {
 	firstName: String!
 	lastName: String
 }`), 0777)
+
 	if err != nil {
 		t.Error(err)
 	}

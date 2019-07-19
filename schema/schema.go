@@ -9,8 +9,7 @@ import (
 	"regexp"
 )
 
-// Read all "*.graphql" files in schema directory
-
+//String reads all "*.graphql" files in schema directory
 func String(path string) string {
 	buf := bytes.Buffer{}
 	filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
