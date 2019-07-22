@@ -21,7 +21,7 @@ var (
 	// ErrQueryNameNotProvided is thrown when a name is not provided
 	ErrQueryNameNotProvided = errors.New("no query was provided in the HTTP body")
 	// ErrIncorrectHTTPMethod is thrown when a method is not allowed in an endpoint
-	ErrIncorrectHTTPMethod  = errors.New("accepts only GET and POST requests")
+	ErrIncorrectHTTPMethod = errors.New("accepts only GET and POST requests")
 )
 
 // Handler processes requests to Lambda function
@@ -70,6 +70,6 @@ func Handler(context context.Context, request events.APIGatewayProxyRequest) (ev
 
 func init() {
 	root, _ := resolver.NewRoot()
-	rootSchema := schema.String("./schema")
+	rootSchema, _ := schema.String("./schema")
 	mainSchema = graphql.MustParseSchema(rootSchema, root)
 }

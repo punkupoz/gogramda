@@ -10,15 +10,15 @@ import (
 )
 
 //String reads all "*.graphql" files in schema directory
-func String(path string) string {
+func String(path string) (string, error) {
 	buf := bytes.Buffer{}
-	filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			fmt.Printf("prevent panic by handling failure accessing a path %q: %v\n", path, err)
-			return err
+			return nil
 		}
 
-		if r, _ := regexp.Compile(".+\\.graphql"); r.MatchString(info.Name()) && !info.IsDir() {
+		if r, _ := regexp.Compile(`.+\.graphql`); r.MatchString(info.Name()) && !info.IsDir() {
 			b, _ := ioutil.ReadFile(path)
 			buf.Write(b)
 			buf.Write([]byte("\n"))
@@ -27,5 +27,9 @@ func String(path string) string {
 		return nil
 	})
 
-	return buf.String()
+	if err != nil {
+		return "", err
+	}
+
+	return buf.String(), nil
 }

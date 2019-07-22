@@ -1,5 +1,0 @@
-
-		type Query {
-			person(id: ID!): Person
-		}
-	

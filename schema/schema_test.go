@@ -18,14 +18,20 @@ func TestSchema(t *testing.T) {
 		t.Error(err)
 	}
 
-	ioutil.WriteFile(filepath.Join(tempDir, "schema.graphql"), []byte(`schema {
+	err = ioutil.WriteFile(filepath.Join(tempDir, "schema.graphql"), []byte(`schema {
 	query: Query
 }`), 0777)
+	if err != nil {
+		t.Error(err)
+	}
 
-	ioutil.WriteFile(filepath.Join(tempDir, "query.graphql"), []byte(`
+	err = ioutil.WriteFile(filepath.Join(tempDir, "query.graphql"), []byte(`
 type Query {
 	person(id: ID!): Person
 }`), 0777)
+	if err != nil {
+		t.Error(err)
+	}
 
 	err = ioutil.WriteFile(filepath.Join(tempDir, "type", "query.graphql"), []byte(`type Person{
 	id: ID!
@@ -50,8 +56,11 @@ type Person{
 	lastName: String
 }
 `
-
-	if String(tempDir) != expected {
+	got, err := String(tempDir)
+	if err != nil {
+		t.Error(err)
+	}
+	if got != expected {
 		t.Error("mismatch")
 	}
 	os.RemoveAll(tempDir)

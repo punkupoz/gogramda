@@ -1,5 +1,3 @@
-
-		schema {
-			query: Query
-		}
-	
+schema {
+	mutation: Mutation
+}

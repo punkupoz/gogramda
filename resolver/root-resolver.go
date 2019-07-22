@@ -1,12 +1,8 @@
 package resolver
 
 import (
-	"context"
 	"fmt"
 	"os"
-
-	graphql "github.com/graph-gophers/graphql-go"
-	"github.com/punkupoz/gogramda/database"
 )
 
 var (
@@ -19,13 +15,13 @@ var (
 
 // Resolver : connection
 type Resolver struct {
-	db *database.DB
+	db *DB
 }
 
 // NewRoot : create a resolver root
 func NewRoot() (*Resolver, error) {
 	conn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s", host, port, dbuser, dbname, pass)
-	db, err := database.Open(conn)
+	db, err := Open(conn)
 	if err != nil {
 		return nil, err
 	}
@@ -33,14 +29,4 @@ func NewRoot() (*Resolver, error) {
 	db.DB.AutoMigrate(&User{})
 
 	return &Resolver{db}, nil
-}
-
-// User : Resolver function for the "User" query
-func (r *Resolver) User(ctx context.Context, args struct{ ID graphql.ID }) *UserResolver {
-	p := &User{
-		ID:        "1001",
-		FirstName: "John",
-		LastName:  "Doe",
-	}
-	return &UserResolver{p}
 }

@@ -1,3 +1,4 @@
 bin/
 .serverless/
 .env
+setup-env.sh
