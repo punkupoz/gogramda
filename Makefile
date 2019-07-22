@@ -1,5 +1,5 @@
 build:
-	rm bin/* && \
+	rm bin/* ; \
 	for CMD in `ls cmd`; do \
 		go build -o bin/`echo $$CMD | cut -d'.' -f1` ./cmd/$$CMD; \
 	done

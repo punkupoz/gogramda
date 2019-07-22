@@ -4,7 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/aws/aws-lambda-go/events"
 
@@ -28,7 +30,10 @@ var (
 func Handler(context context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	log.Printf("Processing Lambda request %s\n", request.RequestContext.RequestID)
 
+	fmt.Print(os.Getenv("DB_HOST"))
+	fmt.Print("ASDSAD")
 	if request.HTTPMethod == "GET" {
+
 		return events.APIGatewayProxyResponse{
 			Headers: map[string]string{"Content-Type": "text/html"},
 			Body:    playground.Playground("GraphQL Playground", "/dev"),
@@ -69,6 +74,7 @@ func Handler(context context.Context, request events.APIGatewayProxyRequest) (ev
 }
 
 func init() {
+
 	root, _ := resolver.NewRoot()
 	rootSchema, _ := schema.String("./schema")
 	mainSchema = graphql.MustParseSchema(rootSchema, root)

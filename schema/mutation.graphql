@@ -2,7 +2,7 @@ type Mutation {
   createUser(user: UserInput!): User!
 }
 
-type UserInput {
+input UserInput {
   ID: ID
   firstName: String!
   lastName: String!

@@ -1,5 +1,5 @@
-type User{
-  id: ID!
+type User {
+  ID: ID!
   firstName: String!
   lastName: String
 }
